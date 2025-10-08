@@ -1,0 +1,19 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/
+*.iml
+
+### Maven ###
+target/
+
+### VSCode ###
+.vscode/
+bin/
+
+### Node.js ###
+node_modules/
+
+### Mac OS ###
+.DS_Store
