@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.StaffDAOImpl;
 import com.solvd.university.dao.interfaces.StaffDAO;
 import com.solvd.university.model.ConcreteStaff;
 import com.solvd.university.model.Department;
@@ -14,8 +15,8 @@ public class StaffServiceImpl implements StaffService {
     private static final Logger LOGGER = LogManager.getLogger(StaffServiceImpl.class);
     private final StaffDAO staffDAO;
 
-    public StaffServiceImpl(StaffDAO staffDAO) {
-        this.staffDAO = staffDAO;
+    public StaffServiceImpl() {
+        this.staffDAO = new StaffDAOImpl();
     }
 
     @Override

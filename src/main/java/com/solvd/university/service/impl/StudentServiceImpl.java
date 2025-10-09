@@ -1,5 +1,11 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.DepartmentDAOImpl;
+import com.solvd.university.dao.impl.EnrollmentDAOImpl;
+import com.solvd.university.dao.impl.ProgramDAOImpl;
+import com.solvd.university.dao.impl.StudentDAOImpl;
+import com.solvd.university.dao.interfaces.EnrollmentDAO;
+import com.solvd.university.dao.interfaces.ProgramDAO;
 import com.solvd.university.dao.interfaces.StudentDAO;
 import com.solvd.university.model.Grade;
 import com.solvd.university.model.Student;
@@ -17,9 +23,11 @@ public class StudentServiceImpl implements StudentService {
     private final StudentDAO studentDAO;
     private final StudentGradeService studentGradeService;
 
-    public StudentServiceImpl(StudentDAO studentDAO, StudentGradeService studentGradeService) {
-        this.studentDAO = studentDAO;
-        this.studentGradeService = studentGradeService;
+    public StudentServiceImpl() {
+        ProgramDAO programDAO = new ProgramDAOImpl(new DepartmentDAOImpl());
+        EnrollmentDAO enrollmentDAO = new EnrollmentDAOImpl(programDAO);
+        this.studentDAO = new StudentDAOImpl(programDAO, enrollmentDAO);
+        this.studentGradeService = new StudentGradeServiceImpl();
     }
 
     @Override

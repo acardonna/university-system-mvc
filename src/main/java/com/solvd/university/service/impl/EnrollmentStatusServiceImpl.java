@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.EnrollmentStatusDAOImpl;
 import com.solvd.university.dao.interfaces.EnrollmentStatusDAO;
 import com.solvd.university.model.EnrollmentStatus;
 import com.solvd.university.service.interfaces.EnrollmentStatusService;
@@ -12,8 +13,8 @@ public class EnrollmentStatusServiceImpl implements EnrollmentStatusService {
     private static final Logger LOGGER = LogManager.getLogger(EnrollmentStatusServiceImpl.class);
     private final EnrollmentStatusDAO enrollmentStatusDAO;
 
-    public EnrollmentStatusServiceImpl(EnrollmentStatusDAO enrollmentStatusDAO) {
-        this.enrollmentStatusDAO = enrollmentStatusDAO;
+    public EnrollmentStatusServiceImpl() {
+        this.enrollmentStatusDAO = new EnrollmentStatusDAOImpl();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.DepartmentDAOImpl;
 import com.solvd.university.dao.interfaces.DepartmentDAO;
 import com.solvd.university.model.Department;
 import com.solvd.university.service.interfaces.DepartmentService;
@@ -13,8 +14,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     private static final Logger LOGGER = LogManager.getLogger(DepartmentServiceImpl.class);
     private final DepartmentDAO departmentDAO;
 
-    public DepartmentServiceImpl(DepartmentDAO departmentDAO) {
-        this.departmentDAO = departmentDAO;
+    public DepartmentServiceImpl() {
+        this.departmentDAO = new DepartmentDAOImpl();
     }
 
     @Override

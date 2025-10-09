@@ -1,5 +1,7 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.DepartmentDAOImpl;
+import com.solvd.university.dao.impl.ProgramDAOImpl;
 import com.solvd.university.dao.interfaces.ProgramDAO;
 import com.solvd.university.model.Department;
 import com.solvd.university.model.Program;
@@ -10,8 +12,8 @@ public class ProgramServiceImpl implements ProgramService {
 
     private final ProgramDAO programDAO;
 
-    public ProgramServiceImpl(ProgramDAO programDAO) {
-        this.programDAO = programDAO;
+    public ProgramServiceImpl() {
+        this.programDAO = new ProgramDAOImpl(new DepartmentDAOImpl());
     }
 
     @Override

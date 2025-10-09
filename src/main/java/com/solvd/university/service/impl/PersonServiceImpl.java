@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.PersonDAOImpl;
 import com.solvd.university.dao.interfaces.PersonDAO;
 import com.solvd.university.model.ConcretePerson;
 import com.solvd.university.model.Person;
@@ -13,8 +14,8 @@ public class PersonServiceImpl implements PersonService {
     private static final Logger LOGGER = LogManager.getLogger(PersonServiceImpl.class);
     private final PersonDAO personDAO;
 
-    public PersonServiceImpl(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonServiceImpl() {
+        this.personDAO = new PersonDAOImpl();
     }
 
     @Override

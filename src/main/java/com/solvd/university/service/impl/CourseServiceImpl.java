@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.*;
 import com.solvd.university.dao.interfaces.CourseDAO;
 import com.solvd.university.model.Course;
 import com.solvd.university.model.CourseFormatter;
@@ -11,8 +12,12 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseDAO courseDAO;
 
-    public CourseServiceImpl(CourseDAO courseDAO) {
-        this.courseDAO = courseDAO;
+    public CourseServiceImpl() {
+        this.courseDAO = new CourseDAOImpl(
+            new DepartmentDAOImpl(),
+            new ProfessorDAOImpl(new DepartmentDAOImpl()),
+            new ClassroomDAOImpl(new BuildingDAOImpl())
+        );
     }
 
     @Override

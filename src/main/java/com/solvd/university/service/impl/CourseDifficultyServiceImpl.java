@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.CourseDifficultyDAOImpl;
 import com.solvd.university.dao.interfaces.CourseDifficultyDAO;
 import com.solvd.university.model.CourseDifficulty;
 import com.solvd.university.service.interfaces.CourseDifficultyService;
@@ -12,8 +13,8 @@ public class CourseDifficultyServiceImpl implements CourseDifficultyService {
     private static final Logger LOGGER = LogManager.getLogger(CourseDifficultyServiceImpl.class);
     private final CourseDifficultyDAO courseDifficultyDAO;
 
-    public CourseDifficultyServiceImpl(CourseDifficultyDAO courseDifficultyDAO) {
-        this.courseDifficultyDAO = courseDifficultyDAO;
+    public CourseDifficultyServiceImpl() {
+        this.courseDifficultyDAO = new CourseDifficultyDAOImpl();
     }
 
     @Override

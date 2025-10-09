@@ -1,5 +1,7 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.DepartmentDAOImpl;
+import com.solvd.university.dao.impl.ProfessorDAOImpl;
 import com.solvd.university.dao.interfaces.ProfessorDAO;
 import com.solvd.university.model.Course;
 import com.solvd.university.model.Professor;
@@ -12,9 +14,9 @@ public class ProfessorServiceImpl implements ProfessorService {
     private final ProfessorDAO professorDAO;
     private final CourseService courseService;
 
-    public ProfessorServiceImpl(ProfessorDAO professorDAO, CourseService courseService) {
-        this.professorDAO = professorDAO;
-        this.courseService = courseService;
+    public ProfessorServiceImpl() {
+        this.professorDAO = new ProfessorDAOImpl(new DepartmentDAOImpl());
+        this.courseService = new CourseServiceImpl();
     }
 
     @Override

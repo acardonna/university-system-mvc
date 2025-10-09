@@ -1,6 +1,11 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.DepartmentDAOImpl;
+import com.solvd.university.dao.impl.EnrollmentDAOImpl;
+import com.solvd.university.dao.impl.ProgramDAOImpl;
+import com.solvd.university.dao.impl.StudentDAOImpl;
 import com.solvd.university.dao.interfaces.EnrollmentDAO;
+import com.solvd.university.dao.interfaces.ProgramDAO;
 import com.solvd.university.dao.interfaces.StudentDAO;
 import com.solvd.university.model.Course;
 import com.solvd.university.model.Enrollment;
@@ -31,18 +36,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private final CourseGradeService courseGradeService;
     private final Random random = new Random();
 
-    public EnrollmentServiceImpl(
-        EnrollmentDAO enrollmentDAO,
-        StudentDAO studentDAO,
-        CourseService courseService,
-        StudentGradeService studentGradeService,
-        CourseGradeService courseGradeService
-    ) {
-        this.enrollmentDAO = enrollmentDAO;
-        this.studentDAO = studentDAO;
-        this.courseService = courseService;
-        this.studentGradeService = studentGradeService;
-        this.courseGradeService = courseGradeService;
+    public EnrollmentServiceImpl() {
+        ProgramDAO programDAO = new ProgramDAOImpl(new DepartmentDAOImpl());
+        this.enrollmentDAO = new EnrollmentDAOImpl(programDAO);
+        this.studentDAO = new StudentDAOImpl(programDAO, this.enrollmentDAO);
+        this.courseService = new CourseServiceImpl();
+        this.studentGradeService = new StudentGradeServiceImpl();
+        this.courseGradeService = new CourseGradeServiceImpl();
     }
 
     @Override

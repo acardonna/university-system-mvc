@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.UniversityDAOImpl;
 import com.solvd.university.dao.interfaces.UniversityDAO;
 import com.solvd.university.model.University;
 import com.solvd.university.service.interfaces.UniversityService;
@@ -13,8 +14,8 @@ public class UniversityServiceImpl implements UniversityService {
     private static final Logger LOGGER = LogManager.getLogger(UniversityServiceImpl.class);
     private final UniversityDAO universityDAO;
 
-    public UniversityServiceImpl(UniversityDAO universityDAO) {
-        this.universityDAO = universityDAO;
+    public UniversityServiceImpl() {
+        this.universityDAO = new UniversityDAOImpl();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.BuildingDAOImpl;
 import com.solvd.university.dao.interfaces.BuildingDAO;
 import com.solvd.university.model.Building;
 import com.solvd.university.service.interfaces.BuildingService;
@@ -13,8 +14,8 @@ public class BuildingServiceImpl implements BuildingService {
     private static final Logger LOGGER = LogManager.getLogger(BuildingServiceImpl.class);
     private final BuildingDAO buildingDAO;
 
-    public BuildingServiceImpl(BuildingDAO buildingDAO) {
-        this.buildingDAO = buildingDAO;
+    public BuildingServiceImpl() {
+        this.buildingDAO = new BuildingDAOImpl();
     }
 
     @Override

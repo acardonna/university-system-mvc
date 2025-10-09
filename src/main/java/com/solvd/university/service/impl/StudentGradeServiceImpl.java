@@ -1,5 +1,6 @@
 package com.solvd.university.service.impl;
 
+import com.solvd.university.dao.impl.StudentGradeDAOImpl;
 import com.solvd.university.dao.interfaces.StudentGradeDAO;
 import com.solvd.university.model.StudentGrade;
 import com.solvd.university.service.interfaces.StudentGradeService;
@@ -12,8 +13,8 @@ public class StudentGradeServiceImpl implements StudentGradeService {
     private static final Logger LOGGER = LogManager.getLogger();
     private final StudentGradeDAO studentGradeDAO;
 
-    public StudentGradeServiceImpl(StudentGradeDAO studentGradeDAO) {
-        this.studentGradeDAO = studentGradeDAO;
+    public StudentGradeServiceImpl() {
+        this.studentGradeDAO = new StudentGradeDAOImpl();
     }
 
     @Override
