@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildings>
+  <building>
+    <building_id>1</building_id>
+    <name>Oxford Main Hall</name>
+    <university_id>1</university_id>
+  </building>
+  <building>
+    <building_id>2</building_id>
+    <name>Cambridge Science Center</name>
+    <university_id>2</university_id>
+  </building>
+  <building>
+    <building_id>3</building_id>
+    <name>Harvard Library</name>
+    <university_id>3</university_id>
+  </building>
+  <building>
+    <building_id>4</building_id>
+    <name>Stanford Engineering Complex</name>
+    <university_id>4</university_id>
+  </building>
+  <building>
+    <building_id>5</building_id>
+    <name>MIT Media Lab</name>
+    <university_id>5</university_id>
+  </building>
+  <building>
+    <building_id>6</building_id>
+    <name>Yale Humanities Building</name>
+    <university_id>6</university_id>
+  </building>
+</buildings>
