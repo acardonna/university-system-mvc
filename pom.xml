@@ -21,10 +21,12 @@
         <maven.surefire.plugin.version>3.5.3</maven.surefire.plugin.version>
 
         <mysql.connector.version>9.4.0</mysql.connector.version>
+
+        <jaxb.version>2.3.1</jaxb.version>
     </properties>
 
     <dependencies>
-         <dependency>
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>${mysql.connector.version}</version>
@@ -40,6 +42,19 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

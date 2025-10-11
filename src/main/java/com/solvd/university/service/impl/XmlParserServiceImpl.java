@@ -6,30 +6,36 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.solvd.university.model.DepartmentXml;
+import com.solvd.university.model.DepartmentsWrapper;
 import com.solvd.university.service.interfaces.XmlParserService;
+import com.solvd.university.util.JAXBParser;
 import com.solvd.university.util.StAXParser;
 
 public class XmlParserServiceImpl implements XmlParserService {
 
     private static final Logger LOGGER = LogManager.getLogger(XmlParserServiceImpl.class);
     private static final String DEPARTMENTS_XML = "xml/departments.xml";
+    private static final String DEPARTMENTS_XSD = "xml/departments.xsd";
     private static final String BUILDINGS_XML = "xml/buildings.xml";
-    private final StAXParser parser;
+    private final StAXParser staxParser;
+    private final JAXBParser jaxbParser;
 
     public XmlParserServiceImpl() {
-        this.parser = new StAXParser();
+        this.staxParser = new StAXParser();
+        this.jaxbParser = new JAXBParser();
     }
 
     @Override
     public List<Map<String, String>> parseDepartments() {
         LOGGER.info("Parsing departments from XML file");
-        return parser.parse(DEPARTMENTS_XML);
+        return staxParser.parse(DEPARTMENTS_XML);
     }
 
     @Override
     public List<Map<String, String>> parseBuildings() {
         LOGGER.info("Parsing buildings from XML file");
-        return parser.parse(BUILDINGS_XML);
+        return staxParser.parse(BUILDINGS_XML);
     }
 
     @Override
@@ -73,5 +79,27 @@ public class XmlParserServiceImpl implements XmlParserService {
             );
         }
         LOGGER.info("===============================================================");
+    }
+
+    @Override
+    public DepartmentsWrapper parseDepartmentsWithJAXB() {
+        LOGGER.info("Parsing departments with JAXB and XSD validation");
+        return jaxbParser.parseAndValidate(DEPARTMENTS_XML, DEPARTMENTS_XSD);
+    }
+
+    @Override
+    public void displayDepartmentsWithJAXB() {
+        DepartmentsWrapper wrapper = parseDepartmentsWithJAXB();
+
+        if (wrapper == null || wrapper.getDepartments() == null || wrapper.getDepartments().isEmpty()) {
+            LOGGER.warn("No departments found using JAXB parsing");
+            return;
+        }
+
+        LOGGER.info("=============== DEPARTMENTS FROM XML (JAXB) ================");
+        for (DepartmentXml dept : wrapper.getDepartments()) {
+            LOGGER.info(dept.toString());
+        }
+        LOGGER.info("==============================================================");
     }
 }

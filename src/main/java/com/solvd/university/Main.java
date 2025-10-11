@@ -15,11 +15,8 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("Starting University System Application");
 
-        XmlParserService xmlParserService = new XmlParserServiceImpl();
-
-        LOGGER.info("Demonstrating StAX XML Parsing:");
-        xmlParserService.displayDepartments();
-        xmlParserService.displayBuildings();
+        demonstrateJAXBParsing();
+        // demonstrateStAXParsing();
 
     //     UniversityService universityService = new UniversityServiceImpl();
     //     DepartmentService departmentService = new DepartmentServiceImpl();
@@ -94,5 +91,18 @@ public class Main {
     //         courseGradeService
     //     );
     //     userInterface.start();
+    }
+
+    private static void demonstrateStAXParsing() {
+        LOGGER.info("=== Demonstrating StAX XML Parsing ===");
+        XmlParserService xmlParserService = new XmlParserServiceImpl();
+        xmlParserService.displayDepartments();
+        xmlParserService.displayBuildings();
+    }
+
+    private static void demonstrateJAXBParsing() {
+        LOGGER.info("=== Demonstrating JAXB XML Parsing ===");
+        XmlParserService xmlParserService = new XmlParserServiceImpl();
+        xmlParserService.displayDepartmentsWithJAXB();
     }
 }
