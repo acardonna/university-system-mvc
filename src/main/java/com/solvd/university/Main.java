@@ -15,7 +15,8 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("Starting University System Application");
 
-        demonstrateJAXBParsing();
+        demonstrateJacksonSerialization();
+        // demonstrateJAXBParsing();
         // demonstrateStAXParsing();
 
     //     UniversityService universityService = new UniversityServiceImpl();
@@ -104,5 +105,16 @@ public class Main {
         LOGGER.info("=== Demonstrating JAXB XML Parsing ===");
         XmlParserService xmlParserService = new XmlParserServiceImpl();
         xmlParserService.displayDepartmentsWithJAXB();
+    }
+
+    private static void demonstrateJacksonSerialization() {
+        LOGGER.info("=== Demonstrating Jackson JSON Serialization ===");
+
+        ProgramJsonService programService = new ProgramJsonServiceImpl();
+        EnrollmentStatusJsonService statusService = new EnrollmentStatusJsonServiceImpl();
+
+        programService.demonstrateReadWrite();
+        LOGGER.info("");
+        statusService.demonstrateReadWrite();
     }
 }

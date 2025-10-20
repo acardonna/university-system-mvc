@@ -4,6 +4,9 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Program implements Identifiable {
 
     private Integer programId;
@@ -77,14 +80,17 @@ public class Program implements Identifiable {
         this.duration = duration;
     }
 
+    @JsonIgnore
     public String getPrice() {
         return numberFormat.format(price);
     }
 
+    @JsonProperty("price")
     public void setPrice(double price) {
         this.price = price;
     }
 
+    @JsonIgnore
     public Department<?> getDepartment() {
         return department;
     }
@@ -119,10 +125,12 @@ public class Program implements Identifiable {
         return String.format("%s | %d years | %s", name, duration, numberFormat.format(price));
     }
 
+    @JsonIgnore
     public double getRawPrice() {
         return price;
     }
 
+    @JsonIgnore
     @Override
     public String getId() {
         return id;

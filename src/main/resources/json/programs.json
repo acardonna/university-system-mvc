@@ -1,0 +1,66 @@
+[
+  {
+    "programId": 1,
+    "departmentId": 1,
+    "universityId": 1,
+    "name": "Bachelor of Computer Science",
+    "duration": 4,
+    "price": 45000.0
+  },
+  {
+    "programId": 2,
+    "departmentId": 2,
+    "universityId": 1,
+    "name": "Bachelor of Mathematics",
+    "duration": 4,
+    "price": 42000.0
+  },
+  {
+    "programId": 3,
+    "departmentId": 3,
+    "universityId": 1,
+    "name": "Bachelor of Engineering",
+    "duration": 4,
+    "price": 48000.0
+  },
+  {
+    "programId": 4,
+    "departmentId": 4,
+    "universityId": 1,
+    "name": "Bachelor of Business Administration",
+    "duration": 4,
+    "price": 44000.0
+  },
+  {
+    "programId": 5,
+    "departmentId": 5,
+    "universityId": 1,
+    "name": "Bachelor of Fine Arts",
+    "duration": 4,
+    "price": 40000.0
+  },
+  {
+    "programId": 6,
+    "departmentId": 1,
+    "universityId": 1,
+    "name": "Master of Computer Science",
+    "duration": 2,
+    "price": 52000.0
+  },
+  {
+    "programId": 7,
+    "departmentId": 2,
+    "universityId": 1,
+    "name": "Master of Applied Mathematics",
+    "duration": 2,
+    "price": 50000.0
+  },
+  {
+    "programId": 8,
+    "departmentId": 3,
+    "universityId": 1,
+    "name": "Master of Engineering",
+    "duration": 2,
+    "price": 55000.0
+  }
+]

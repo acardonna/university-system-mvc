@@ -1,0 +1,52 @@
+[
+  {
+    "enrollmentStatusId": 1,
+    "displayName": "Applied",
+    "description": "Application submitted"
+  },
+  {
+    "enrollmentStatusId": 2,
+    "displayName": "Accepted",
+    "description": "Application accepted"
+  },
+  {
+    "enrollmentStatusId": 3,
+    "displayName": "Waitlisted",
+    "description": "On waiting list"
+  },
+  {
+    "enrollmentStatusId": 4,
+    "displayName": "Enrolled",
+    "description": "Actively enrolled"
+  },
+  {
+    "enrollmentStatusId": 5,
+    "displayName": "Completed",
+    "description": "Program completed"
+  },
+  {
+    "enrollmentStatusId": 6,
+    "displayName": "Deferred",
+    "description": "Enrollment deferred"
+  },
+  {
+    "enrollmentStatusId": 7,
+    "displayName": "Rejected",
+    "description": "Application rejected"
+  },
+  {
+    "enrollmentStatusId": 8,
+    "displayName": "Withdrawn",
+    "description": "Student withdrew"
+  },
+  {
+    "enrollmentStatusId": 9,
+    "displayName": "Suspended",
+    "description": "Temporarily suspended"
+  },
+  {
+    "enrollmentStatusId": 10,
+    "displayName": "On Leave",
+    "description": "Student on leave of absence"
+  }
+]

@@ -10,7 +10,16 @@ target/
 
 ### VSCode ###
 .vscode/
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+.factorypath
 bin/
+
+### Zed ###
+.zed/
 
 ### Node.js ###
 node_modules/
