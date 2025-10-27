@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.university.dao.interfaces.MyBatisProgramDAO">
+
+  <resultMap id="ProgramResultMap" type="com.solvd.university.model.Program" autoMapping="false">
+    <id property="programId" column="program_id" />
+    <result property="name" column="name" />
+    <result property="duration" column="duration_years" />
+    <result property="price" column="price" />
+    <result property="departmentId" column="department_id" />
+    <result property="universityId" column="university_id" />
+  </resultMap>
+
+  <insert id="save" keyColumn="program_id" keyProperty="programId" useGeneratedKeys="true"> INSERT
+    INTO program (name, duration_years, price, department_id, university_id) VALUES (#{name},
+    #{duration}, #{rawPrice}, #{departmentId}, #{universityId}) </insert>
+
+  <select id="findById" resultMap="ProgramResultMap"> SELECT * FROM program WHERE program_id =
+    #{programId} </select>
+
+  <select id="findByName" resultMap="ProgramResultMap"> SELECT * FROM program WHERE name = #{name} </select>
+
+  <select id="findByDepartment" resultMap="ProgramResultMap"> SELECT * FROM program WHERE
+    department_id = #{departmentId} </select>
+
+  <select id="findAll" resultMap="ProgramResultMap"> SELECT * FROM program ORDER BY program_id </select>
+
+  <update id="update"> UPDATE program SET name = #{name}, duration_years = #{duration}, price =
+    #{rawPrice}, department_id = #{departmentId}, university_id = #{universityId} WHERE program_id =
+    #{programId} </update>
+
+  <delete id="delete"> DELETE FROM program WHERE program_id = #{programId} </delete>
+
+</mapper>

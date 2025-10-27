@@ -26,3 +26,5 @@ node_modules/
 
 ### Mac OS ###
 .DS_Store
+
+database.properties

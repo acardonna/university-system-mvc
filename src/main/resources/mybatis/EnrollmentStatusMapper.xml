@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.university.dao.interfaces.MyBatisEnrollmentStatusDAO">
+
+  <resultMap id="EnrollmentStatusResultMap" type="com.solvd.university.model.EnrollmentStatus"
+    autoMapping="false">
+    <id property="enrollmentStatusId" column="enrollment_status_id" />
+    <result property="displayName" column="display_name" />
+    <result property="description" column="description" />
+  </resultMap>
+
+  <insert id="save" keyColumn="enrollment_status_id" keyProperty="enrollmentStatusId"
+    useGeneratedKeys="true"> INSERT INTO enrollment_status (display_name, description) VALUES
+    (#{displayName}, #{description}) </insert>
+
+  <select id="findById" resultMap="EnrollmentStatusResultMap"> SELECT * FROM enrollment_status WHERE
+    enrollment_status_id = #{enrollmentStatusId} </select>
+
+  <select id="findByDisplayName" resultMap="EnrollmentStatusResultMap"> SELECT * FROM
+    enrollment_status WHERE display_name = #{displayName} </select>
+
+  <select id="findAll" resultMap="EnrollmentStatusResultMap"> SELECT * FROM enrollment_status ORDER
+    BY enrollment_status_id </select>
+
+  <update id="update"> UPDATE enrollment_status SET display_name = #{displayName}, description =
+    #{description} WHERE enrollment_status_id = #{enrollmentStatusId} </update>
+
+  <delete id="delete"> DELETE FROM enrollment_status WHERE enrollment_status_id =
+    #{enrollmentStatusId} </delete>
+
+</mapper>

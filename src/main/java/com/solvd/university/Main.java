@@ -15,47 +15,48 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("Starting University System Application");
 
-        demonstrateJacksonSerialization();
+        demonstrateMyBatis();
+        // demonstrateJacksonSerialization();
         // demonstrateJAXBParsing();
         // demonstrateStAXParsing();
 
-    //     UniversityService universityService = new UniversityServiceImpl();
-    //     DepartmentService departmentService = new DepartmentServiceImpl();
-    //     BuildingService buildingService = new BuildingServiceImpl();
-    //     StudentGradeService studentGradeService = new StudentGradeServiceImpl();
-    //     CourseGradeService courseGradeService = new CourseGradeServiceImpl();
-    //     StudentService studentService = new StudentServiceImpl();
-    //     CourseService courseService = new CourseServiceImpl();
-    //     ProfessorService professorService = new ProfessorServiceImpl();
-    //     ProgramService programService = new ProgramServiceImpl();
-    //     EnrollmentService enrollmentService = new EnrollmentServiceImpl();
-    //     ClassroomService classroomService = new ClassroomServiceImpl();
-    //     CourseDifficultyService courseDifficultyService = new CourseDifficultyServiceImpl();
-    //     EnrollmentStatusService enrollmentStatusService = new EnrollmentStatusServiceImpl();
-    //     GradeLevelService gradeLevelService = new GradeLevelServiceImpl();
-    //     PersonService personService = new PersonServiceImpl();
-    //     StaffService staffService = new StaffServiceImpl();
+        // UniversityService universityService = new UniversityServiceImpl();
+        // DepartmentService departmentService = new DepartmentServiceImpl();
+        // BuildingService buildingService = new BuildingServiceImpl();
+        // StudentGradeService studentGradeService = new StudentGradeServiceImpl();
+        // CourseGradeService courseGradeService = new CourseGradeServiceImpl();
+        // StudentService studentService = new StudentServiceImpl();
+        // CourseService courseService = new CourseServiceImpl();
+        // ProfessorService professorService = new ProfessorServiceImpl();
+        // ProgramService programService = new ProgramServiceImpl();
+        // EnrollmentService enrollmentService = new EnrollmentServiceImpl();
+        // ClassroomService classroomService = new ClassroomServiceImpl();
+        // CourseDifficultyService courseDifficultyService = new CourseDifficultyServiceImpl();
+        // EnrollmentStatusService enrollmentStatusService = new EnrollmentStatusServiceImpl();
+        // GradeLevelService gradeLevelService = new GradeLevelServiceImpl();
+        // PersonService personService = new PersonServiceImpl();
+        // StaffService staffService = new StaffServiceImpl();
 
-    //     Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
 
-    //     DatabaseInitializer.initializeAll(
-    //         universityService,
-    //         departmentService,
-    //         buildingService,
-    //         courseDifficultyService,
-    //         enrollmentStatusService,
-    //         gradeLevelService,
-    //         programService,
-    //         professorService,
-    //         courseService,
-    //         classroomService,
-    //         studentService,
-    //         enrollmentService,
-    //         studentGradeService,
-    //         courseGradeService,
-    //         personService,
-    //         staffService
-    //     );
+        // DatabaseInitializer.initializeAll(
+        //     universityService,
+        //     departmentService,
+        //     buildingService,
+        //     courseDifficultyService,
+        //     enrollmentStatusService,
+        //     gradeLevelService,
+        //     programService,
+        //     professorService,
+        //     courseService,
+        //     classroomService,
+        //     studentService,
+        //     enrollmentService,
+        //     studentGradeService,
+        //     courseGradeService,
+        //     personService,
+        //     staffService
+        // );
 
     //     DatabaseInitializer.displayDatabaseOverview(
     //         universityService,
@@ -116,5 +117,34 @@ public class Main {
         programService.demonstrateReadWrite();
         LOGGER.info("");
         statusService.demonstrateReadWrite();
+    }
+
+    private static void demonstrateMyBatis() {
+        LOGGER.info("=== Demonstrating MyBatis ORM ===");
+
+        MyBatisProgramService myBatisProgramService = new MyBatisProgramServiceImpl();
+        MyBatisEnrollmentStatusService myBatisEnrollmentStatusService = new MyBatisEnrollmentStatusServiceImpl();
+
+        LOGGER.info("\n--- Testing Program CRUD Operations with MyBatis ---");
+        LOGGER.info("Total programs before MyBatis operations: {}", myBatisProgramService.getAllPrograms().size());
+
+        myBatisProgramService.demonstrateCRUD();
+
+        LOGGER.info("Total programs after MyBatis operations: {}", myBatisProgramService.getAllPrograms().size());
+
+        LOGGER.info("\n--- Testing EnrollmentStatus CRUD Operations with MyBatis ---");
+        LOGGER.info(
+            "Total enrollment statuses before MyBatis operations: {}",
+            myBatisEnrollmentStatusService.getAllEnrollmentStatuses().size()
+        );
+
+        myBatisEnrollmentStatusService.demonstrateCRUD();
+
+        LOGGER.info(
+            "Total enrollment statuses after MyBatis operations: {}",
+            myBatisEnrollmentStatusService.getAllEnrollmentStatuses().size()
+        );
+
+        LOGGER.info("\n=== MyBatis Demonstration Completed ===");
     }
 }
