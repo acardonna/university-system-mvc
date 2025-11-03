@@ -1,13 +1,15 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.CourseGradeDAOImpl;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.CourseGradeDAO;
 import com.solvd.university.model.CourseGrade;
 import com.solvd.university.service.interfaces.CourseGradeService;
-import java.time.LocalDateTime;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class CourseGradeServiceImpl implements CourseGradeService {
 
@@ -15,7 +17,7 @@ public class CourseGradeServiceImpl implements CourseGradeService {
     private final CourseGradeDAO courseGradeDAO;
 
     public CourseGradeServiceImpl() {
-        this.courseGradeDAO = new CourseGradeDAOImpl();
+        this.courseGradeDAO = DAOFactory.create(CourseGradeDAO.class);
     }
 
     @Override

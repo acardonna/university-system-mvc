@@ -1,11 +1,9 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.DepartmentDAOImpl;
-import com.solvd.university.dao.impl.EnrollmentDAOImpl;
-import com.solvd.university.dao.impl.ProgramDAOImpl;
-import com.solvd.university.dao.impl.StudentDAOImpl;
-import com.solvd.university.dao.interfaces.EnrollmentDAO;
-import com.solvd.university.dao.interfaces.ProgramDAO;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.StudentDAO;
 import com.solvd.university.model.Grade;
 import com.solvd.university.model.Student;
@@ -15,8 +13,6 @@ import com.solvd.university.model.exception.DuplicateRegistrationException;
 import com.solvd.university.model.exception.StudentNotFoundException;
 import com.solvd.university.service.interfaces.StudentGradeService;
 import com.solvd.university.service.interfaces.StudentService;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class StudentServiceImpl implements StudentService {
 
@@ -24,9 +20,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentGradeService studentGradeService;
 
     public StudentServiceImpl() {
-        ProgramDAO programDAO = new ProgramDAOImpl(new DepartmentDAOImpl());
-        EnrollmentDAO enrollmentDAO = new EnrollmentDAOImpl(programDAO);
-        this.studentDAO = new StudentDAOImpl(programDAO, enrollmentDAO);
+        this.studentDAO = DAOFactory.create(StudentDAO.class);
         this.studentGradeService = new StudentGradeServiceImpl();
     }
 

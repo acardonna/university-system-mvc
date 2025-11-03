@@ -1,13 +1,15 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.BuildingDAOImpl;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.BuildingDAO;
 import com.solvd.university.model.Building;
 import com.solvd.university.service.interfaces.BuildingService;
-import java.util.List;
-import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class BuildingServiceImpl implements BuildingService {
 
@@ -15,7 +17,7 @@ public class BuildingServiceImpl implements BuildingService {
     private final BuildingDAO buildingDAO;
 
     public BuildingServiceImpl() {
-        this.buildingDAO = new BuildingDAOImpl();
+        this.buildingDAO = DAOFactory.create(BuildingDAO.class);
     }
 
     @Override

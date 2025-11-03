@@ -1,6 +1,5 @@
 package com.solvd.university.model;
 
-import com.solvd.university.model.annotation.RequiredExperience;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +7,8 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.TreeMap;
+
+import com.solvd.university.model.annotation.RequiredExperience;
 
 @RequiredExperience(level = 2)
 public class Course<T, D extends Department<T>> implements Identifiable, Schedulable {
@@ -382,5 +383,67 @@ public class Course<T, D extends Department<T>> implements Identifiable, Schedul
             sched,
             gradeInfo
         );
+    }
+
+    public static <T, D extends Department<T>> Builder<T, D> builder() {
+        return new Builder<>();
+    }
+
+    public static final class Builder<T, D extends Department<T>> {
+
+        private Integer courseNumber;
+        private String courseCode;
+        private String courseName;
+        private int creditHours;
+        private Professor professor;
+        private D department;
+        private CourseDifficulty difficulty = CourseDifficulty.INTRODUCTORY;
+
+        public Builder<T, D> number(int number) {
+            this.courseNumber = number;
+            this.courseCode = null;
+            return this;
+        }
+
+        public Builder<T, D> code(String code) {
+            this.courseCode = code;
+            this.courseNumber = null;
+            return this;
+        }
+
+        public Builder<T, D> name(String name) {
+            this.courseName = name;
+            return this;
+        }
+
+        public Builder<T, D> creditHours(int hours) {
+            this.creditHours = hours;
+            return this;
+        }
+
+        public Builder<T, D> professor(Professor assignedProfessor) {
+            this.professor = assignedProfessor;
+            return this;
+        }
+
+        public Builder<T, D> department(D dept) {
+            this.department = dept;
+            return this;
+        }
+
+        public Builder<T, D> difficulty(CourseDifficulty level) {
+            this.difficulty = level != null ? level : CourseDifficulty.INTRODUCTORY;
+            return this;
+        }
+
+        public Course<T, D> build() {
+            if (courseCode != null) {
+                return new Course<>(courseCode, courseName, creditHours, professor, department, difficulty);
+            }
+            if (courseNumber != null) {
+                return new Course<>(courseNumber, courseName, creditHours, professor, department, difficulty);
+            }
+            throw new IllegalStateException("Course code or number must be provided");
+        }
     }
 }

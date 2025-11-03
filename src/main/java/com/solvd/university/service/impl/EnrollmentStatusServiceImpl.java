@@ -1,12 +1,14 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.EnrollmentStatusDAOImpl;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.EnrollmentStatusDAO;
 import com.solvd.university.model.EnrollmentStatus;
 import com.solvd.university.service.interfaces.EnrollmentStatusService;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class EnrollmentStatusServiceImpl implements EnrollmentStatusService {
 
@@ -14,7 +16,7 @@ public class EnrollmentStatusServiceImpl implements EnrollmentStatusService {
     private final EnrollmentStatusDAO enrollmentStatusDAO;
 
     public EnrollmentStatusServiceImpl() {
-        this.enrollmentStatusDAO = new EnrollmentStatusDAOImpl();
+        this.enrollmentStatusDAO = DAOFactory.create(EnrollmentStatusDAO.class);
     }
 
     @Override

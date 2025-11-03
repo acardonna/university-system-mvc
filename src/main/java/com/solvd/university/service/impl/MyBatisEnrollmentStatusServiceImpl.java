@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.solvd.university.dao.impl.MyBatisEnrollmentStatusDAOImpl;
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.MyBatisEnrollmentStatusDAO;
 import com.solvd.university.model.EnrollmentStatus;
 import com.solvd.university.service.interfaces.MyBatisEnrollmentStatusService;
@@ -16,7 +16,7 @@ public class MyBatisEnrollmentStatusServiceImpl implements MyBatisEnrollmentStat
     private final MyBatisEnrollmentStatusDAO enrollmentStatusDAO;
 
     public MyBatisEnrollmentStatusServiceImpl() {
-        this.enrollmentStatusDAO = new MyBatisEnrollmentStatusDAOImpl();
+        this.enrollmentStatusDAO = DAOFactory.create(MyBatisEnrollmentStatusDAO.class);
     }
 
     @Override

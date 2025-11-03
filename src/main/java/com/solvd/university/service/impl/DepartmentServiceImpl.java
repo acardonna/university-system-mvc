@@ -1,13 +1,15 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.DepartmentDAOImpl;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.DepartmentDAO;
 import com.solvd.university.model.Department;
 import com.solvd.university.service.interfaces.DepartmentService;
-import java.util.List;
-import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -15,7 +17,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentDAO departmentDAO;
 
     public DepartmentServiceImpl() {
-        this.departmentDAO = new DepartmentDAOImpl();
+        this.departmentDAO = DAOFactory.create(DepartmentDAO.class);
     }
 
     @Override

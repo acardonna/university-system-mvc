@@ -1,12 +1,14 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.CourseDifficultyDAOImpl;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.CourseDifficultyDAO;
 import com.solvd.university.model.CourseDifficulty;
 import com.solvd.university.service.interfaces.CourseDifficultyService;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class CourseDifficultyServiceImpl implements CourseDifficultyService {
 
@@ -14,7 +16,7 @@ public class CourseDifficultyServiceImpl implements CourseDifficultyService {
     private final CourseDifficultyDAO courseDifficultyDAO;
 
     public CourseDifficultyServiceImpl() {
-        this.courseDifficultyDAO = new CourseDifficultyDAOImpl();
+        this.courseDifficultyDAO = DAOFactory.create(CourseDifficultyDAO.class);
     }
 
     @Override

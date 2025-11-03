@@ -1,14 +1,16 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.StaffDAOImpl;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.StaffDAO;
 import com.solvd.university.model.ConcreteStaff;
 import com.solvd.university.model.Department;
 import com.solvd.university.model.Staff;
 import com.solvd.university.service.interfaces.StaffService;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class StaffServiceImpl implements StaffService {
 
@@ -16,7 +18,7 @@ public class StaffServiceImpl implements StaffService {
     private final StaffDAO staffDAO;
 
     public StaffServiceImpl() {
-        this.staffDAO = new StaffDAOImpl();
+        this.staffDAO = DAOFactory.create(StaffDAO.class);
     }
 
     @Override

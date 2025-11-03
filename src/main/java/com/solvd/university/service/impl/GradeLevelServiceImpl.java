@@ -1,12 +1,14 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.GradeLevelDAOImpl;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.GradeLevelDAO;
 import com.solvd.university.model.GradeLevel;
 import com.solvd.university.service.interfaces.GradeLevelService;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class GradeLevelServiceImpl implements GradeLevelService {
 
@@ -14,7 +16,7 @@ public class GradeLevelServiceImpl implements GradeLevelService {
     private final GradeLevelDAO gradeLevelDAO;
 
     public GradeLevelServiceImpl() {
-        this.gradeLevelDAO = new GradeLevelDAOImpl();
+        this.gradeLevelDAO = DAOFactory.create(GradeLevelDAO.class);
     }
 
     @Override

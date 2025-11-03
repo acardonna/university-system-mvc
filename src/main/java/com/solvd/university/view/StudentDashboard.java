@@ -8,93 +8,100 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.solvd.university.model.*;
-import com.solvd.university.model.exception.*;
-import com.solvd.university.service.interfaces.*;
-import com.solvd.university.view.command.CommandFactory;
-import com.solvd.university.view.command.CommandInvoker;
+import com.solvd.university.model.exception.AlreadyEnrolledException;
+import com.solvd.university.model.exception.InvalidPaymentException;
+import com.solvd.university.model.exception.StudentNotEnrolledException;
+import com.solvd.university.service.interfaces.EnrollmentService;
+import com.solvd.university.service.interfaces.ProgramService;
 
-public class UserInterface {
-
-    private static final Logger LOGGER = LogManager.getLogger();
+public class StudentDashboard {
+    private static final Logger LOGGER = LogManager.getLogger(StudentDashboard.class);
 
     private final Scanner scanner;
-    private final String universityName;
-    private final StudentService studentService;
     private final EnrollmentService enrollmentService;
     private final ProgramService programService;
-    private final ProfessorService professorService;
-    private final CourseService courseService;
-    private final ClassroomService classroomService;
 
     private static final GradeValidator STANDARD_GRADE_VALIDATOR = grade -> grade >= 0.0 && grade <= 100.0;
     private static final GradeValidator PASSING_GRADE_VALIDATOR = grade -> grade >= 60.0 && grade <= 100.0;
 
-    private static final StudentFilter ACTIVE_STUDENTS = Student::isEnrolled;
-    private static final StudentFilter HONOR_STUDENTS = student -> student.calculateAverageGrade() >= 90.0;
-    private static final StudentFilter STUDENTS_WITH_DEBT = student -> student.getOutstandingBalance() > 0;
-
-    private static final CourseFormatter DETAILED_COURSE_FORMAT = course ->
-        String.format(
-            "%s - %s (%d credits) - %s [%s]",
-            course.getCourseCode(),
-            course.getCourseName(),
-            course.getCreditHours(),
-            course.getProfessor().getFullName(),
-            course.getDifficulty().getDisplayName()
-        );
-
-    public UserInterface(
-        Scanner scanner,
-        String universityName,
-        UniversityService universityService,
-        DepartmentService departmentService,
-        BuildingService buildingService,
-        StudentService studentService,
-        EnrollmentService enrollmentService,
-        ProgramService programService,
-        ProfessorService professorService,
-        CourseService courseService,
-        ClassroomService classroomService,
-        StudentGradeService studentGradeService,
-        CourseGradeService courseGradeService
-    ) {
+    public StudentDashboard(Scanner scanner, EnrollmentService enrollmentService, ProgramService programService) {
         this.scanner = scanner;
-        this.universityName = universityName;
-        this.studentService = studentService;
         this.enrollmentService = enrollmentService;
         this.programService = programService;
-        this.professorService = professorService;
-        this.courseService = courseService;
-        this.classroomService = classroomService;
     }
 
-    public void start() {
-        CommandInvoker invoker = CommandFactory.createGuestCommandInvoker(scanner);
+    public void displayDashboard(Student student) {
+        LOGGER.info("Login successful!");
+        LOGGER.info("");
+
+        LOGGER.info(String.format("Welcome, %s!", student.getFullName()));
+        LOGGER.info(
+            String.format(
+                "Academic Level: %s (Year %d)",
+                student.getGradeLevel().getDisplayName(),
+                student.getGradeLevel().getYear()
+            )
+        );
+        LOGGER.info("");
+
+        String statusMessage;
+        if (student.isEnrolled() && student.getEnrolledProgram() != null) {
+            statusMessage = String.format(
+                "You are enrolled in %s (Status: %s)",
+                student.getEnrolledProgram().getName(),
+                student.getEnrollmentStatus().getDisplayName()
+            );
+        } else if (student.getEnrollmentStatus().equals(EnrollmentStatus.ENROLLED)) {
+            statusMessage =
+                "Status: " + student.getEnrollmentStatus().getDisplayName() + " (Program enrollment being processed)";
+        } else {
+            statusMessage = "Status: " + student.getEnrollmentStatus().getDisplayName();
+        }
+
+        LOGGER.info("Current Status: " + statusMessage);
 
         while (true) {
-            invoker.displayMenu(String.format("=== %s University Enrollment System ===", universityName));
+            LOGGER.info("1. View my enrollment");
+            LOGGER.info("2. Enroll in a program");
+            LOGGER.info("3. Make a payment");
+            LOGGER.info("4. View my grades");
+            LOGGER.info("5. Log out");
             LOGGER.info("");
 
             int option = getIntInput("Select option: ");
-            LOGGER.info("");
 
-            if (invoker.hasCommand(option)) {
-                invoker.executeCommand(option);
-            } else {
-                LOGGER.info("Invalid option. Please try again.");
-                LOGGER.info("");
-            }
-        }
-    }
-
-    private int getIntInput(String prompt) {
-        while (true) {
-            System.out.print(prompt);
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                LOGGER.info("Please enter a valid number.");
-                LOGGER.info("");
+            switch (option) {
+                case 1 -> {
+                    try {
+                        viewEnrollmentDetails(student);
+                    } catch (StudentNotEnrolledException e) {
+                        LOGGER.error(e.getMessage());
+                        LOGGER.info("");
+                    }
+                }
+                case 2 -> {
+                    try {
+                        handleEnrollment(student);
+                    } catch (AlreadyEnrolledException e) {
+                        LOGGER.error(e.getMessage());
+                        LOGGER.info("");
+                    }
+                }
+                case 3 -> {
+                    try {
+                        handlePayment(student);
+                    } catch (StudentNotEnrolledException | InvalidPaymentException e) {
+                        LOGGER.error(e.getMessage());
+                        LOGGER.info("");
+                    }
+                }
+                case 4 -> {
+                    viewStudentGrades(student);
+                }
+                case 5 -> {
+                    return;
+                }
+                default -> LOGGER.info("Invalid option. Please try again.");
             }
         }
     }
@@ -277,7 +284,7 @@ public class UserInterface {
     }
 
     private void showAvailablePrograms(Student student) {
-        Map<Department<?>, List<Program>> availablePrograms = programService
+        Map<Object, List<Program>> availablePrograms = programService
             .getAllPrograms()
             .stream()
             .filter(program -> program.getDepartment() != null)
@@ -291,8 +298,9 @@ public class UserInterface {
         availablePrograms
             .entrySet()
             .forEach(entry -> {
+                Object dept = entry.getKey();
                 LOGGER.info(
-                    "Department: " + entry.getKey().getName() + " (" + entry.getKey().getDepartmentCode() + ")"
+                    "Department: " + dept.getClass().getSimpleName()
                 );
                 entry
                     .getValue()
@@ -332,4 +340,15 @@ public class UserInterface {
         }
     }
 
+    private int getIntInput(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                LOGGER.info("Please enter a valid number.");
+                LOGGER.info("");
+            }
+        }
+    }
 }

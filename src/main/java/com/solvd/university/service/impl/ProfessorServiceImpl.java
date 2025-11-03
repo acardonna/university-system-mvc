@@ -1,13 +1,13 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.DepartmentDAOImpl;
-import com.solvd.university.dao.impl.ProfessorDAOImpl;
+import java.util.List;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.ProfessorDAO;
 import com.solvd.university.model.Course;
 import com.solvd.university.model.Professor;
 import com.solvd.university.service.interfaces.CourseService;
 import com.solvd.university.service.interfaces.ProfessorService;
-import java.util.List;
 
 public class ProfessorServiceImpl implements ProfessorService {
 
@@ -15,7 +15,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     private final CourseService courseService;
 
     public ProfessorServiceImpl() {
-        this.professorDAO = new ProfessorDAOImpl(new DepartmentDAOImpl());
+        this.professorDAO = DAOFactory.create(ProfessorDAO.class);
         this.courseService = new CourseServiceImpl();
     }
 

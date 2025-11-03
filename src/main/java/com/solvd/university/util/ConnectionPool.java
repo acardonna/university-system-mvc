@@ -40,6 +40,7 @@ public class ConnectionPool {
         initializePool();
 
         // LOGGER.info("Connection pool initialized with {} connections", poolSize);
+
     }
 
     public static synchronized ConnectionPool getInstance() {

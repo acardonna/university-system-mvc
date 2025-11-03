@@ -1,13 +1,15 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.UniversityDAOImpl;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.UniversityDAO;
 import com.solvd.university.model.University;
 import com.solvd.university.service.interfaces.UniversityService;
-import java.util.List;
-import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class UniversityServiceImpl implements UniversityService {
 
@@ -15,7 +17,7 @@ public class UniversityServiceImpl implements UniversityService {
     private final UniversityDAO universityDAO;
 
     public UniversityServiceImpl() {
-        this.universityDAO = new UniversityDAOImpl();
+        this.universityDAO = DAOFactory.create(UniversityDAO.class);
     }
 
     @Override

@@ -1,13 +1,15 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.PersonDAOImpl;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.PersonDAO;
 import com.solvd.university.model.ConcretePerson;
 import com.solvd.university.model.Person;
 import com.solvd.university.service.interfaces.PersonService;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PersonServiceImpl implements PersonService {
 
@@ -15,7 +17,7 @@ public class PersonServiceImpl implements PersonService {
     private final PersonDAO personDAO;
 
     public PersonServiceImpl() {
-        this.personDAO = new PersonDAOImpl();
+        this.personDAO = DAOFactory.create(PersonDAO.class);
     }
 
     @Override

@@ -1,23 +1,20 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.CourseDAO;
 import com.solvd.university.model.Course;
 import com.solvd.university.model.CourseFormatter;
 import com.solvd.university.service.interfaces.CourseService;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class CourseServiceImpl implements CourseService {
 
     private final CourseDAO courseDAO;
 
     public CourseServiceImpl() {
-        this.courseDAO = new CourseDAOImpl(
-            new DepartmentDAOImpl(),
-            new ProfessorDAOImpl(new DepartmentDAOImpl()),
-            new ClassroomDAOImpl(new BuildingDAOImpl())
-        );
+        this.courseDAO = DAOFactory.create(CourseDAO.class);
     }
 
     @Override

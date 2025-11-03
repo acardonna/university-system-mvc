@@ -1,18 +1,18 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.BuildingDAOImpl;
-import com.solvd.university.dao.impl.ClassroomDAOImpl;
+import java.util.List;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.ClassroomDAO;
 import com.solvd.university.model.Classroom;
 import com.solvd.university.service.interfaces.ClassroomService;
-import java.util.List;
 
 public class ClassroomServiceImpl implements ClassroomService {
 
     private final ClassroomDAO classroomDAO;
 
     public ClassroomServiceImpl() {
-        this.classroomDAO = new ClassroomDAOImpl(new BuildingDAOImpl());
+        this.classroomDAO = DAOFactory.create(ClassroomDAO.class);
     }
 
     @Override

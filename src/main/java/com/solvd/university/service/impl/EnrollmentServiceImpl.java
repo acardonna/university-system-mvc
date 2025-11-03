@@ -1,11 +1,15 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.DepartmentDAOImpl;
-import com.solvd.university.dao.impl.EnrollmentDAOImpl;
-import com.solvd.university.dao.impl.ProgramDAOImpl;
-import com.solvd.university.dao.impl.StudentDAOImpl;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.EnrollmentDAO;
-import com.solvd.university.dao.interfaces.ProgramDAO;
 import com.solvd.university.dao.interfaces.StudentDAO;
 import com.solvd.university.model.Course;
 import com.solvd.university.model.Enrollment;
@@ -19,13 +23,7 @@ import com.solvd.university.service.interfaces.CourseGradeService;
 import com.solvd.university.service.interfaces.CourseService;
 import com.solvd.university.service.interfaces.EnrollmentService;
 import com.solvd.university.service.interfaces.StudentGradeService;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import com.solvd.university.util.RandomProvider;
 
 public class EnrollmentServiceImpl implements EnrollmentService {
 
@@ -34,12 +32,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private final CourseService courseService;
     private final StudentGradeService studentGradeService;
     private final CourseGradeService courseGradeService;
-    private final Random random = new Random();
+    private final Random random = RandomProvider.getInstance().getRandom();
 
     public EnrollmentServiceImpl() {
-        ProgramDAO programDAO = new ProgramDAOImpl(new DepartmentDAOImpl());
-        this.enrollmentDAO = new EnrollmentDAOImpl(programDAO);
-        this.studentDAO = new StudentDAOImpl(programDAO, this.enrollmentDAO);
+        this.enrollmentDAO = DAOFactory.create(EnrollmentDAO.class);
+        this.studentDAO = DAOFactory.create(StudentDAO.class);
         this.courseService = new CourseServiceImpl();
         this.studentGradeService = new StudentGradeServiceImpl();
         this.courseGradeService = new CourseGradeServiceImpl();

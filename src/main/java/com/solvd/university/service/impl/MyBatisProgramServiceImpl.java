@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.solvd.university.dao.impl.MyBatisProgramDAOImpl;
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.MyBatisProgramDAO;
 import com.solvd.university.model.Department;
 import com.solvd.university.model.Program;
@@ -17,7 +17,7 @@ public class MyBatisProgramServiceImpl implements MyBatisProgramService {
     private final MyBatisProgramDAO programDAO;
 
     public MyBatisProgramServiceImpl() {
-        this.programDAO = new MyBatisProgramDAOImpl();
+        this.programDAO = DAOFactory.create(MyBatisProgramDAO.class);
     }
 
     @Override

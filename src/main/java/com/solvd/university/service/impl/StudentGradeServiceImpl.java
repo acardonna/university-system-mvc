@@ -1,12 +1,14 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.StudentGradeDAOImpl;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.StudentGradeDAO;
 import com.solvd.university.model.StudentGrade;
 import com.solvd.university.service.interfaces.StudentGradeService;
-import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class StudentGradeServiceImpl implements StudentGradeService {
 
@@ -14,7 +16,7 @@ public class StudentGradeServiceImpl implements StudentGradeService {
     private final StudentGradeDAO studentGradeDAO;
 
     public StudentGradeServiceImpl() {
-        this.studentGradeDAO = new StudentGradeDAOImpl();
+        this.studentGradeDAO = DAOFactory.create(StudentGradeDAO.class);
     }
 
     @Override

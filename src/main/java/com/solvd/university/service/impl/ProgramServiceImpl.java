@@ -1,19 +1,19 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.dao.impl.DepartmentDAOImpl;
-import com.solvd.university.dao.impl.ProgramDAOImpl;
+import java.util.List;
+
+import com.solvd.university.dao.factory.DAOFactory;
 import com.solvd.university.dao.interfaces.ProgramDAO;
 import com.solvd.university.model.Department;
 import com.solvd.university.model.Program;
 import com.solvd.university.service.interfaces.ProgramService;
-import java.util.List;
 
 public class ProgramServiceImpl implements ProgramService {
 
     private final ProgramDAO programDAO;
 
     public ProgramServiceImpl() {
-        this.programDAO = new ProgramDAOImpl(new DepartmentDAOImpl());
+        this.programDAO = DAOFactory.create(ProgramDAO.class);
     }
 
     @Override

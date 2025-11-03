@@ -1,41 +1,9 @@
 package com.solvd.university.util;
 
-import com.solvd.university.model.ArtsDepartment;
-import com.solvd.university.model.Building;
-import com.solvd.university.model.BusinessDepartment;
-import com.solvd.university.model.Classroom;
-import com.solvd.university.model.ComputerScienceDepartment;
-import com.solvd.university.model.Course;
-import com.solvd.university.model.CourseDifficulty;
-import com.solvd.university.model.CourseGrade;
-import com.solvd.university.model.Department;
-import com.solvd.university.model.EngineeringDepartment;
-import com.solvd.university.model.Enrollment;
-import com.solvd.university.model.MathematicsDepartment;
-import com.solvd.university.model.Person;
-import com.solvd.university.model.Professor;
-import com.solvd.university.model.Program;
-import com.solvd.university.model.Staff;
-import com.solvd.university.model.Student;
-import com.solvd.university.model.StudentGrade;
-import com.solvd.university.model.University;
-import com.solvd.university.service.interfaces.BuildingService;
-import com.solvd.university.service.interfaces.ClassroomService;
-import com.solvd.university.service.interfaces.CourseDifficultyService;
-import com.solvd.university.service.interfaces.CourseGradeService;
-import com.solvd.university.service.interfaces.CourseService;
-import com.solvd.university.service.interfaces.DepartmentService;
-import com.solvd.university.service.interfaces.EnrollmentService;
-import com.solvd.university.service.interfaces.EnrollmentStatusService;
-import com.solvd.university.service.interfaces.GradeLevelService;
-import com.solvd.university.service.interfaces.PersonService;
-import com.solvd.university.service.interfaces.ProfessorService;
-import com.solvd.university.service.interfaces.ProgramService;
-import com.solvd.university.service.interfaces.StaffService;
-import com.solvd.university.service.interfaces.StudentGradeService;
-import com.solvd.university.service.interfaces.StudentService;
-import com.solvd.university.service.interfaces.UniversityService;
 import java.util.List;
+
+import com.solvd.university.model.*;
+import com.solvd.university.service.interfaces.*;
 
 public class DatabaseInitializer {
 
@@ -539,210 +507,235 @@ public class DatabaseInitializer {
         BusinessDepartment business = (BusinessDepartment) departmentService.getDepartmentByCode("BUS");
         ArtsDepartment arts = (ArtsDepartment) departmentService.getDepartmentByCode("ART");
 
-        Course<String, ComputerScienceDepartment> introductionToProgramming = new Course<>(
-            101,
-            "Introduction to Programming",
-            3,
-            johnSmith,
-            computerScience,
-            CourseDifficulty.INTRODUCTORY
-        );
-        Course<String, ComputerScienceDepartment> dataStructures = new Course<>(
-            201,
-            "Data Structures",
-            4,
-            johnSmith,
-            computerScience,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, ComputerScienceDepartment> algorithms = new Course<>(
-            301,
-            "Algorithms",
-            4,
-            johnSmith,
-            computerScience,
-            CourseDifficulty.ADVANCED
-        );
-        Course<String, ComputerScienceDepartment> webDevelopment = new Course<>(
-            250,
-            "Web Development",
-            3,
-            johnSmith,
-            computerScience,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, ComputerScienceDepartment> databaseSystems = new Course<>(
-            310,
-            "Database Systems",
-            4,
-            johnSmith,
-            computerScience,
-            CourseDifficulty.ADVANCED
-        );
+        Course<String, ComputerScienceDepartment> introductionToProgramming = Course
+            .<String, ComputerScienceDepartment>builder()
+            .number(101)
+            .name("Introduction to Programming")
+            .creditHours(3)
+            .professor(johnSmith)
+            .department(computerScience)
+            .difficulty(CourseDifficulty.INTRODUCTORY)
+            .build();
+        Course<String, ComputerScienceDepartment> dataStructures = Course
+            .<String, ComputerScienceDepartment>builder()
+            .number(201)
+            .name("Data Structures")
+            .creditHours(4)
+            .professor(johnSmith)
+            .department(computerScience)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, ComputerScienceDepartment> algorithms = Course
+            .<String, ComputerScienceDepartment>builder()
+            .number(301)
+            .name("Algorithms")
+            .creditHours(4)
+            .professor(johnSmith)
+            .department(computerScience)
+            .difficulty(CourseDifficulty.ADVANCED)
+            .build();
+        Course<String, ComputerScienceDepartment> webDevelopment = Course
+            .<String, ComputerScienceDepartment>builder()
+            .number(250)
+            .name("Web Development")
+            .creditHours(3)
+            .professor(johnSmith)
+            .department(computerScience)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, ComputerScienceDepartment> databaseSystems = Course
+            .<String, ComputerScienceDepartment>builder()
+            .number(310)
+            .name("Database Systems")
+            .creditHours(4)
+            .professor(johnSmith)
+            .department(computerScience)
+            .difficulty(CourseDifficulty.ADVANCED)
+            .build();
 
-        Course<String, MathematicsDepartment> calculus = new Course<>(
-            101,
-            "Calculus I",
-            4,
-            emilyDavis,
-            mathematics,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, MathematicsDepartment> linearAlgebra = new Course<>(
-            201,
-            "Linear Algebra",
-            4,
-            emilyDavis,
-            mathematics,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, MathematicsDepartment> statistics = new Course<>(
-            220,
-            "Statistics",
-            3,
-            emilyDavis,
-            mathematics,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, MathematicsDepartment> discreteMath = new Course<>(
-            150,
-            "Discrete Mathematics",
-            3,
-            emilyDavis,
-            mathematics,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, MathematicsDepartment> calculusII = new Course<>(
-            102,
-            "Calculus II",
-            4,
-            emilyDavis,
-            mathematics,
-            CourseDifficulty.INTERMEDIATE
-        );
+        Course<String, MathematicsDepartment> calculus = Course
+            .<String, MathematicsDepartment>builder()
+            .number(101)
+            .name("Calculus I")
+            .creditHours(4)
+            .professor(emilyDavis)
+            .department(mathematics)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, MathematicsDepartment> linearAlgebra = Course
+            .<String, MathematicsDepartment>builder()
+            .number(201)
+            .name("Linear Algebra")
+            .creditHours(4)
+            .professor(emilyDavis)
+            .department(mathematics)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, MathematicsDepartment> statistics = Course
+            .<String, MathematicsDepartment>builder()
+            .number(220)
+            .name("Statistics")
+            .creditHours(3)
+            .professor(emilyDavis)
+            .department(mathematics)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, MathematicsDepartment> discreteMath = Course
+            .<String, MathematicsDepartment>builder()
+            .number(150)
+            .name("Discrete Mathematics")
+            .creditHours(3)
+            .professor(emilyDavis)
+            .department(mathematics)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, MathematicsDepartment> calculusII = Course
+            .<String, MathematicsDepartment>builder()
+            .number(102)
+            .name("Calculus II")
+            .creditHours(4)
+            .professor(emilyDavis)
+            .department(mathematics)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
 
-        Course<String, EngineeringDepartment> mechanicsI = new Course<>(
-            101,
-            "Engineering Mechanics I",
-            4,
-            michaelBrown,
-            engineering,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, EngineeringDepartment> thermodynamics = new Course<>(
-            210,
-            "Thermodynamics",
-            4,
-            michaelBrown,
-            engineering,
-            CourseDifficulty.ADVANCED
-        );
-        Course<String, EngineeringDepartment> circuitAnalysis = new Course<>(
-            220,
-            "Circuit Analysis",
-            4,
-            michaelBrown,
-            engineering,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, EngineeringDepartment> materialsScience = new Course<>(
-            230,
-            "Materials Science",
-            3,
-            michaelBrown,
-            engineering,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, EngineeringDepartment> fluidMechanics = new Course<>(
-            310,
-            "Fluid Mechanics",
-            4,
-            michaelBrown,
-            engineering,
-            CourseDifficulty.ADVANCED
-        );
+        Course<String, EngineeringDepartment> mechanicsI = Course
+            .<String, EngineeringDepartment>builder()
+            .number(101)
+            .name("Engineering Mechanics I")
+            .creditHours(4)
+            .professor(michaelBrown)
+            .department(engineering)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, EngineeringDepartment> thermodynamics = Course
+            .<String, EngineeringDepartment>builder()
+            .number(210)
+            .name("Thermodynamics")
+            .creditHours(4)
+            .professor(michaelBrown)
+            .department(engineering)
+            .difficulty(CourseDifficulty.ADVANCED)
+            .build();
+        Course<String, EngineeringDepartment> circuitAnalysis = Course
+            .<String, EngineeringDepartment>builder()
+            .number(220)
+            .name("Circuit Analysis")
+            .creditHours(4)
+            .professor(michaelBrown)
+            .department(engineering)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, EngineeringDepartment> materialsScience = Course
+            .<String, EngineeringDepartment>builder()
+            .number(230)
+            .name("Materials Science")
+            .creditHours(3)
+            .professor(michaelBrown)
+            .department(engineering)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, EngineeringDepartment> fluidMechanics = Course
+            .<String, EngineeringDepartment>builder()
+            .number(310)
+            .name("Fluid Mechanics")
+            .creditHours(4)
+            .professor(michaelBrown)
+            .department(engineering)
+            .difficulty(CourseDifficulty.ADVANCED)
+            .build();
 
-        Course<String, BusinessDepartment> accounting = new Course<>(
-            101,
-            "Financial Accounting",
-            3,
-            sarahJohnson,
-            business,
-            CourseDifficulty.INTRODUCTORY
-        );
-        Course<String, BusinessDepartment> marketing = new Course<>(
-            210,
-            "Marketing Fundamentals",
-            3,
-            sarahJohnson,
-            business,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, BusinessDepartment> finance = new Course<>(
-            220,
-            "Corporate Finance",
-            4,
-            sarahJohnson,
-            business,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, BusinessDepartment> management = new Course<>(
-            230,
-            "Management Principles",
-            3,
-            sarahJohnson,
-            business,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, BusinessDepartment> businessEthics = new Course<>(
-            310,
-            "Business Ethics",
-            3,
-            sarahJohnson,
-            business,
-            CourseDifficulty.ADVANCED
-        );
+        Course<String, BusinessDepartment> accounting = Course
+            .<String, BusinessDepartment>builder()
+            .number(101)
+            .name("Financial Accounting")
+            .creditHours(3)
+            .professor(sarahJohnson)
+            .department(business)
+            .difficulty(CourseDifficulty.INTRODUCTORY)
+            .build();
+        Course<String, BusinessDepartment> marketing = Course
+            .<String, BusinessDepartment>builder()
+            .number(210)
+            .name("Marketing Fundamentals")
+            .creditHours(3)
+            .professor(sarahJohnson)
+            .department(business)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, BusinessDepartment> finance = Course
+            .<String, BusinessDepartment>builder()
+            .number(220)
+            .name("Corporate Finance")
+            .creditHours(4)
+            .professor(sarahJohnson)
+            .department(business)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, BusinessDepartment> management = Course
+            .<String, BusinessDepartment>builder()
+            .number(230)
+            .name("Management Principles")
+            .creditHours(3)
+            .professor(sarahJohnson)
+            .department(business)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, BusinessDepartment> businessEthics = Course
+            .<String, BusinessDepartment>builder()
+            .number(310)
+            .name("Business Ethics")
+            .creditHours(3)
+            .professor(sarahJohnson)
+            .department(business)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
 
-        Course<String, ArtsDepartment> artHistory = new Course<>(
-            101,
-            "Art History I",
-            3,
-            davidWilson,
-            arts,
-            CourseDifficulty.INTRODUCTORY
-        );
-        Course<String, ArtsDepartment> drawing = new Course<>(
-            110,
-            "Drawing Fundamentals",
-            3,
-            davidWilson,
-            arts,
-            CourseDifficulty.INTRODUCTORY
-        );
-        Course<String, ArtsDepartment> painting = new Course<>(
-            210,
-            "Painting Techniques",
-            3,
-            davidWilson,
-            arts,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, ArtsDepartment> sculpture = new Course<>(
-            220,
-            "Sculpture Studio",
-            4,
-            davidWilson,
-            arts,
-            CourseDifficulty.INTERMEDIATE
-        );
-        Course<String, ArtsDepartment> digitalArt = new Course<>(
-            310,
-            "Digital Art and Design",
-            3,
-            davidWilson,
-            arts,
-            CourseDifficulty.ADVANCED
-        );
+        Course<String, ArtsDepartment> artHistory = Course
+            .<String, ArtsDepartment>builder()
+            .number(101)
+            .name("Art History I")
+            .creditHours(3)
+            .professor(davidWilson)
+            .department(arts)
+            .difficulty(CourseDifficulty.INTRODUCTORY)
+            .build();
+        Course<String, ArtsDepartment> drawing = Course
+            .<String, ArtsDepartment>builder()
+            .number(110)
+            .name("Drawing Fundamentals")
+            .creditHours(3)
+            .professor(davidWilson)
+            .department(arts)
+            .difficulty(CourseDifficulty.INTRODUCTORY)
+            .build();
+        Course<String, ArtsDepartment> painting = Course
+            .<String, ArtsDepartment>builder()
+            .number(210)
+            .name("Painting Techniques")
+            .creditHours(3)
+            .professor(davidWilson)
+            .department(arts)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, ArtsDepartment> sculpture = Course
+            .<String, ArtsDepartment>builder()
+            .number(220)
+            .name("Sculpture Studio")
+            .creditHours(4)
+            .professor(davidWilson)
+            .department(arts)
+            .difficulty(CourseDifficulty.INTERMEDIATE)
+            .build();
+        Course<String, ArtsDepartment> digitalArt = Course
+            .<String, ArtsDepartment>builder()
+            .number(310)
+            .name("Digital Art and Design")
+            .creditHours(3)
+            .professor(davidWilson)
+            .department(arts)
+            .difficulty(CourseDifficulty.ADVANCED)
+            .build();
 
         johnSmith.assignCourse(introductionToProgramming);
         johnSmith.assignCourse(dataStructures);
